@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>手机端原生H5页面</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<h2>杭州方大丝有限公司应聘登记表</h1>
+	</header>
+	
+	<main>
+		<section>
+			<h2>填表时间</h2>
+			<div class="select-box" id="open-modal">请选择</div>
+			<div class="modal">
+				<div class="modal-dialog">
+				  <div class="dialog-option">
+					<button id="close-modal">取消</button>
+					<button>确定</button>
+				  </div>
+				  <div class="date-name">
+					<span>年</span>
+					<span>月</span>
+					<span>日</span>
+				  </div>
+				  <div class="selectors">
+					<select id="year-selector"></select>
+					<select id="month-selector"></select>
+					<select id="day-selector"></select>
+				  </div>
+				  <!-- <button id="close-modal">关闭选择框</button> -->
+				</div>
+			  </div>
+		</section>
+		
+		<section>
+			<h2>教育经历（请至少完整填写一行）</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>时间</th>
+						<th>毕业院校</th>
+						<th>专业</th>
+						<th>详细情况</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</main>
+	
+	<footer>
+		<hr>
+		<p>这是一个手机端原生H5页面</p>
+	</footer>
+	
+	<script>
+        var openModalButton = document.querySelector("#open-modal");
+
+// 获取关闭选择框的按钮
+var closeModalButton = document.querySelector("#close-modal");
+
+// 获取选择框元素
+var modal = document.querySelector(".modal");
+
+// 获取年份、月份和日期选择器元素
+var yearSelector = document.querySelector("#year-selector");
+var monthSelector = document.querySelector("#month-selector");
+var daySelector = document.querySelector("#day-selector");
+        // 获取年份、月份和日期选择器元素
+var yearSelector = document.querySelector('#year-selector');
+var monthSelector = document.querySelector('#month-selector');
+var daySelector = document.querySelector('#day-selector');
+
+// 初始化年份、月份和日期选择器选项
+for (var i = 1900; i <= 2100; i++) {
+	var option = document.createElement('option');
+	option.value = i;
+	option.textContent = i;
+	yearSelector.appendChild(option);
+}
+
+for (var i = 1; i <= 12; i++) {
+	var option = document.createElement('option');
+	option.value = i;
+	option.textContent = i;
+	monthSelector.appendChild(option);
+}
+
+for (var i = 1; i <= 31; i++) {
+	var option = document.createElement('option');
+	option.value = i;
+	option.textContent = i;
+	daySelector.appendChild(option);
+}
+
+// 获取当前日期
+var currentDate = new Date();
+
+// 设置日期选择器的默认值为当前日期
+yearSelector.value = currentDate.getFullYear();
+monthSelector.value = currentDate.getMonth() + 1;
+daySelector.value = currentDate.getDate();
+
+// 更新日期选择器选项
+function updateSelectors() {
+	// 获取选中的年份、月份和日期
+	var selectedYear = parseInt(yearSelector.value);
+	var selectedMonth = parseInt(monthSelector.value);
+	var selectedDay = parseInt(daySelector.value);
+	
+	// 获取选中月份的天数
+	var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+	
+	// 更新日期选择器选项
+	daySelector.innerHTML = '';
+	for (var i = 1; i <= daysInMonth; i++) {
+		var option = document.createElement('option');
+		option.value = i;
+		option.textContent = i;
+		daySelector.appendChild(option);
+	}
+	
+	// 确保日期选择器选项与选中的日期匹配
+	if (selectedDay > daysInMonth) {
+		daySelector.value = daysInMonth;
+	} else {
+		daySelector.value = selectedDay;
+	}
+}
+
+// 监听年份和月份选择器的变化，并更新日期选择器的选项
+yearSelector.addEventListener('change', updateSelectors);
+monthSelector.addEventListener('change', updateSelectors);
+
+// 监听触摸事件，实现滑动选择日期
+var startY, endY, currentY;
+daySelector.addEventListener('touchstart', function(e) {
+	startY = e.changedTouches[0].clientY;
+	currentY = startY;
+});
+daySelector.addEventListener('touchmove', function(e) {
+	e.preventDefault();
+	endY = e.changedTouches[0].clientY;
+	var deltaY = endY - currentY;
+	currentY = endY;
+	var selectedIndex = daySelector.selectedIndex;
+	var maxIndex = daySelector.options.length - 1;
+	if (deltaY > 0 && selectedIndex > 0) {
+		daySelector.selectedIndex--;
+	} else if (deltaY < 0 && selectedIndex < maxIndex) {
+		daySelector.selectedIndex++;
+	}
+});
+
+monthSelector.addEventListener('touchstart', function(e) {
+	startY = e.changedTouches[0].clientY;
+	currentY = startY;
+});
+monthSelector.addEventListener('touchmove', function(e) {
+	e.preventDefault();
+	endY = e.changedTouches[0].clientY;
+	var deltaY = endY - currentY;
+	currentY = endY;
+	var selectedIndex = monthSelector.selectedIndex;
+	var maxIndex = monthSelector.options.length - 1;
+	if (deltaY > 0 && selectedIndex > 0) {
+		monthSelector.selectedIndex--;
+	} else if (deltaY < 0 && selectedIndex < maxIndex) {
+		monthSelector.selectedIndex++;
+	}
+});
+
+yearSelector.addEventListener('touchstart', function(e) {
+	startY = e.changedTouches[0].clientY;
+	currentY = startY;
+});
+yearSelector.addEventListener('touchmove', function(e) {
+	e.preventDefault();
+	endY = e.changedTouches[0].clientY;
+	var deltaY = endY - currentY;
+	currentY = endY;
+	var selectedIndex = yearSelector.selectedIndex;
+	var maxIndex = yearSelector.options.length - 1;
+	if (deltaY > 0 && selectedIndex > 0) {
+		yearSelector.selectedIndex--;
+	} else if (deltaY < 0 && selectedIndex < maxIndex) {
+		yearSelector.selectedIndex++;
+	}
+});
+// 监听年份和月份选择器的变化，并更新日期选择器的选项
+// yearSelector.addEventListener("change", updateSelectors);
+// monthSelector.addEventListener("change", updateSelectors);
+// 打开选择框
+openModalButton.addEventListener("click", function () {
+  modal.classList.add("active");
+  setTimeout(function () {
+    modal.querySelector(".modal-dialog").classList.add("active");
+  }, 200);
+});
+
+// 关闭选择框
+closeModalButton.addEventListener("click", function () {
+  modal.querySelector(".modal-dialog").classList.remove("active");
+  setTimeout(function () {
+    modal.classList.remove("active");
+  }, 200);
+});
+    </script>
+</body>
+</html>
