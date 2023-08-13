@@ -1,18 +1,15 @@
-import { useState } from 'react'
-import Home from './views/Home.jsx'
-import router from './router/index.jsx'
-import './App.css'
-import { Route, RouterProvider } from 'react-router-dom'
-
+import { useState } from "react";
+import Index from "./views/Index.jsx";
+import { Route, BrowserRouter as Router, Link, Routes } from "react-router-dom";
 function App() {
   return (
-    <div className="w-lg bg-pink-100">
-      {/* <RouterProvider router={router}>
-      <Home></Home>
-      </RouterProvider> */}
-      <Home></Home>
-    </div>
-  )
+    <Router>
+      {/* <Routes>
+        <Route path="/" exact component={<Index />}></Route>
+      </Routes> */}
+      <Index></Index>
+    </Router>
+  );
 }
 
-export default App
+export default App;

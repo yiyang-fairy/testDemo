@@ -1,6 +1,6 @@
-import { createBrowserRouter } from "react-router-dom";
+  import { createBrowserRouter } from "react-router-dom";
 import Home from "../views/Home";
-import About from "../views/About";
+import About from "../views/CityList";
 
 const router = createBrowserRouter([
     { 
