@@ -6,16 +6,17 @@ const request = axios.create({
   baseURL: BASE_URL,
 });
 
-let localToken = localStorage.getItem('token');;
+let localToken = localStorage.getItem('token');
 
 export const setLocalToken = (token) => {
   localToken = token;
   localStorage.setItem('token', token);
 };
 
-export const tokenObj = {
-  token: 1
-}
+export const hasLogin = () => {
+  return !!localToken;
+};
+
 
 // 请求拦截器
 request.interceptors.request.use(

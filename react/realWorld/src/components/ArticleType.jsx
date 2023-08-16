@@ -1,6 +1,7 @@
-export default function AriticleType() {
+
+export default function ArticleType() {
   function select(e) {
-    const span = document.querySelectorAll(".ariticle span");
+    const span = document.querySelectorAll(".article span");
     span.forEach((item) => {
       item.classList.remove("border-b-2", "text-green-500");
       item.classList.add("hover:text-gray-500");
@@ -21,7 +22,7 @@ export default function AriticleType() {
     }
   }
   return (
-    <div className="ariticle border-b border-gray-300 border-solid h-8 text-gray-300">
+    <div className="article border-b border-gray-300 border-solid h-8 text-gray-300">
       <Yours></Yours>
       <span
         onClick={(e) => select(e)}

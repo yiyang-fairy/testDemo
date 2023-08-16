@@ -1,10 +1,10 @@
-import {  request, setLocalToken, tokenObj } from "../request";
+import { request, setLocalToken } from "../request";
 
 export const register = (user) => {
   return request({
     method: "POST",
     url: "/users",
-    data: user,
+    data: { user },
   });
 };
 
@@ -16,11 +16,7 @@ export const login = async (user) => {
     url: "/users/login",
     data: { user },
   });
-
   setLocalToken(token);
-  console.log(user)
+
   return user;
 };
-
-
-tokenObj.token = 2
