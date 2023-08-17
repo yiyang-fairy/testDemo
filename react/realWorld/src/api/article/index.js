@@ -7,6 +7,13 @@ export const getArticles = (params) => {
         params,
     });
 }
+export const getArticleFeed = (parmas) => {
+    return request({
+        method: 'GET',
+        url:'/articles/feed',
+        parmas
+    })
+}
 export const getArticle = (slug) => {
     return request({
         method: "GET",

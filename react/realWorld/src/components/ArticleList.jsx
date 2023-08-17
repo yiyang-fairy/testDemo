@@ -1,7 +1,7 @@
 import {favoriteArticle, unfavoriteArticle} from "../api/article";
 import Tags from "./Tags";
 import { useEffect, useState } from "react";
-export default function AirticleList(props) {
+export default function AirticleList(props) { 
   function clickLike(e, favorited) {
     const target = e.target
     if(favorited) {
@@ -17,12 +17,8 @@ export default function AirticleList(props) {
         target.nextSibling.textContent = res.article.favoritesCount
       })
     }
-    console.log(e, favorited, 'oooooooooooo')
   }
   function toDetail(slut) {
-    // getArticle(slut).then(res => {
-    //   setArticle(res.article)
-    // })
     location.href='article?slut=' + slut
   }
   const [favorited, setFavorited] = useState(false)
