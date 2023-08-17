@@ -18,6 +18,7 @@ export default function Login() {
     },
   ];
 function userLogin() {
+  console.log('log innnnnnnnnnnnnnnnnnn')
   login({
     email,
     password
@@ -32,7 +33,10 @@ function userLogin() {
         <LoginHeader type="login"  />
         <LoginForm inputArray={loginFormArray}></LoginForm>
         <div className="flex justify-end">
-          <button onClick={userLogin} className="main-bg px-8 py-3 text-white rounded-md ">
+          <button onClick={() => {
+            console.log('hi')
+            userLogin()
+          }} className="main-bg px-8 py-3 text-white rounded-md ">
             Sign in
           </button>
         </div>

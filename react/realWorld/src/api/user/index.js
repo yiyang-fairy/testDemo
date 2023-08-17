@@ -20,3 +20,18 @@ export const login = async (user) => {
 
   return user;
 };
+
+export const updateUser = (user) => {
+  return request({
+    method: "PUT",
+    url: "/user",
+    data: { user },
+  });
+};
+
+export const getUser = () => {
+  return request({
+    method:'GET',
+    url:'/user'
+  })
+}
