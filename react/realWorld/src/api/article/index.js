@@ -20,6 +20,14 @@ export const getArticle = (slug) => {
         url: `/articles/${slug}`,
     });
 }
+
+export const createArticle = (article) => {
+    return request({
+        method:'POST',
+        url:'/articles',
+        data: {article}
+    })
+}
  
 export const favoriteArticle = (slug) => {
     return request({
