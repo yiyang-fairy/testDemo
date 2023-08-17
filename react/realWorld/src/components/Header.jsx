@@ -13,22 +13,53 @@ export default function Header() {
           >
             Home
           </div>
-          <div
-            className="mx-5"
-            onClick={() => {
-              location.href = "/login";
-            }}
-          >
-            Sign in
-          </div>
-          <div
-            className="mx-5"
-            onClick={() => {
-              location.href = "/register";
-            }}
-          >
-            Sign up
-          </div>
+          {!localStorage.getItem("token") ? (
+            <>
+              <div
+                className="mx-5"
+                onClick={() => {
+                  location.href = "/login";
+                }}
+              >
+                Sign in
+              </div>
+              <div
+                className="mx-5"
+                onClick={() => {
+                  location.href = "/register";
+                }}
+              >
+                Sign up
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="mx-5"
+                onClick={() => {
+                  location.href = "/create";
+                }}
+              >
+                New Article
+              </div>
+              <div
+                className="mx-5"
+                onClick={() => {
+                  location.href = "/setting";
+                }}
+              >
+                Setting
+              </div>
+              <div
+                className="mx-5"
+                onClick={() => {
+                  location.href = "/user";
+                }}
+              >
+               username
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

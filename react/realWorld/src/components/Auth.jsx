@@ -7,7 +7,7 @@ function Auth(props) {
 
   useEffect(() => {
     if (!hasLogin()) {
-      // navigate("/login");
+      navigate("/login");
     }
   }, []);
   return <div>{props.children}</div>;
