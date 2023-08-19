@@ -1,9 +1,7 @@
-import { useContext } from "react";
-import { ArticleTypeContext } from "../utils/articleType";
 export default function Tags(props) {
-  const { updateArticleType } = useContext(ArticleTypeContext);
   function clickTag(tag) {
-    updateArticleType(tag);
+    props.setCurrentTag(tag);
+    props.getArticleList(tag);
   }
   const tags = props.tags.map((tag, index) => {
     return props.type === 1 ? (

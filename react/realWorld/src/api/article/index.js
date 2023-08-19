@@ -41,7 +41,6 @@ export const unfavoriteArticle = (slug) => {
         url: `/articles/${slug}/favorite`,
     });
 }
-
 export const getTags = () => {
     return request({
         method: "GET",

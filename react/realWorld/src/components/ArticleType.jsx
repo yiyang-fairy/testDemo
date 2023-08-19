@@ -1,12 +1,10 @@
-import { useContext, useEffect } from "react";
-import { ArticleTypeContext } from "../utils/articleType";
-export default function ArticleType() {
-  const { articleType, updateArticleType } = useContext(ArticleTypeContext);
+import { useEffect } from "react";
+export default function ArticleType(props) {
   useEffect(() => {
-    if (typeof articleType === "string") {
+    if (props.currentTag) {
       activeSpan(document.querySelector(".article .tag-feed"));
     }
-  }, [articleType]);
+  }, [props.currentTag]);
 
   function activeSpan(element) {
     const span = document.querySelectorAll(".article span");
@@ -17,33 +15,33 @@ export default function ArticleType() {
     element.classList.add("border-b-2", "text-green-500");
     element.classList.remove("hover:text-gray-500");
   }
-  function select(e) {
-    activeSpan(e.target);
-    if (e.target.innerText === "Your Feed") {
-      updateArticleType(1);
-    } else {
-      updateArticleType(0);
-    }
-  }
   return (
     <div className="article border-b border-gray-300 border-solid h-8 text-gray-300">
       {localStorage.getItem("token") && (
         <span
-          onClick={(e) => select(e)}
+          onClick={(e) => {
+            activeSpan(e.target);
+            props.currentTag && props.deleteCurrentTag();
+            props.otherType.getList();
+          }}
           className=" inline-block  border-green-500 border-solid h-8 px-4  text-lg hover:text-gray-500"
         >
-          Your Feed
+          {props.otherType.name}
         </span>
       )}
       <span
-        onClick={(e) => select(e)}
+        onClick={(e) => {
+          activeSpan(e.target);
+          props.currentTag && props.deleteCurrentTag();
+          props.mainType.getList();
+        }}
         className=" text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-lg hover:text-gray-500"
       >
-        Global Feed
+        {props.mainType.name}
       </span>
-      {typeof articleType === "string" && (
+      {props.currentTag && (
         <span className=" tag-feed text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-lg hover:text-gray-500">
-          # {articleType}
+          # {props.currentTag}
         </span>
       )}
     </div>
