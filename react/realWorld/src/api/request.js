@@ -21,7 +21,6 @@ export const hasLogin = () => {
 // 请求拦截器
 request.interceptors.request.use(
   (config) => {
-    console.log(config.url, 'config')
     // 在发送请求之前可以进行一些处理，例如添加请求头、身份验证等
     const token = localToken;
     if (token) {

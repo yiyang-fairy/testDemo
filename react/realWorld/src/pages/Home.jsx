@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import ArticleType from "../components/ArticleType";
 import ArticleList from "../components/ArticleList";
 import { getArticleFeed, getArticles } from "../api/article";
+import {useImmer} from 'use-immer'
 export default function Home() {
-  const [articles, setArticles] = useState([]);
+  const [articles, updateArticles] = useImmer([]);
   function getFeed() {
     getArticleFeed({
       limit: 10,
       offset: 0,
     }).then((res) => {
-      setArticles(res.articles);
+      updateArticles(res.articles);
     });
   }
   function getArticleList(tag) {
@@ -19,7 +20,7 @@ export default function Home() {
       offset: 0,
       tag,
     }).then((res) => {
-      setArticles(res.articles);
+      updateArticles(res.articles);
     });
   }
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function Home() {
             currentTag={currentTag}
             deleteCurrentTag={deleteCurrentTag}
           ></ArticleType>
-          <ArticleList articles={articles}></ArticleList>
+          <ArticleList articles={articles} updateArticles={updateArticles}></ArticleList>
         </div>
         <div className="">
           <TagList
