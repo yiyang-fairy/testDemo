@@ -3,7 +3,11 @@ import { favoriteArticle, unfavoriteArticle } from "../api/article";
 import Tags from "./Tags";
 import { useEffect, useState } from "react";
 export default function ArticleList(props) {
+  const navigate= useNavigate()
   function clickLike(item) {
+    if(!localStorage.getItem('token')) {
+      navigate("/login")
+    }
     props.updateArticles((draft) => {
       const current = draft.find((a) => a.slug === item.slug);
       if (current.favorited) {
@@ -20,10 +24,17 @@ export default function ArticleList(props) {
   function toDetail(slug) {
     location.href = "article?slut=" + slug;
   }
-  const navigate = useNavigate()
   function toAuthor(author) {
     navigate(`/user/${author}`)
   }
+  useEffect(() => {
+    if(!localStorage.getItem('token')) {
+      props.updateArticles(draft => {
+        draft.every(item=> item.favorited = false)
+        return draft
+      })
+    }
+  }, [localStorage.getItem('token')])
   if (!props.articles) return <div>no articles...</div>;
   return (
     <div>

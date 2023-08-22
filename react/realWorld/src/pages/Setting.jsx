@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getUser, updateUser } from "../api/user";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../utils/user";
 
 export default function Setting() {
   const [image, setImage] = useState("");
@@ -7,6 +9,8 @@ export default function Setting() {
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  const {setUser} = useContext(UserContext)
   useEffect(() => {
     getUser().then(res => {
         console.log(res, 'res')
@@ -88,6 +92,8 @@ export default function Setting() {
         <button
             onClick={() => {
                 localStorage.clear("token")
+                setUser(null)
+                navigate('/')
             }}
             className=" px-2 py-1 text-amber-700 rounded-md border border-amber-700 border-solid text-sm"
           >

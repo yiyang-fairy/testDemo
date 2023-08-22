@@ -23,7 +23,7 @@ function App() {
 console.log(user, 'app user')
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{user, setUser}}>
       <div>
         <Header></Header>
         <RouterProvider router={router} />

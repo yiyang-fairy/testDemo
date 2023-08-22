@@ -1,5 +1,4 @@
 export default function LoginForm(props) {
-    console.log(props)
     const inputArray = props.inputArray.map((item, index)=>{
         return (
             <p className="flex items-center border-2 border-solid border-gray-300 p-5 mb-5 rounded-md font-blod" key={index}>

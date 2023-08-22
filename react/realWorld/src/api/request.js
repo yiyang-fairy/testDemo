@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "https://api.realworld.io/api";
 
@@ -17,6 +18,7 @@ export const hasLogin = () => {
   return !!localToken;
 };
 
+// const navigate = useNavigate()
 
 // 请求拦截器
 request.interceptors.request.use(
@@ -28,6 +30,7 @@ request.interceptors.request.use(
     }
     else if(config.url !== "/users/login") {
       // location.href = '/login'
+      // navigate("/login")
     }
     return config;
   },

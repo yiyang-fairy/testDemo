@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getUser } from "../api/user";
+import { UserContext } from "../utils/user";
 
 export default function Header() {
+  const {user} = useContext(UserContext)
   useEffect(() => {
-    getUser().then((res) => {
-      setUserImage(res.user.image);
-      setUsername(res.user.username);
-    });
-  });
+    if(user) {
+      setUserImage(user.image);
+      setUsername(user.username);
+    }
+  }, [user]);
   const [username, setUsername] = useState("");
   const [userImage, setUserImage] = useState("");
   return (
     <div className="w-full h-14 flex items-center justify-center">
       <div className="main  flex justify-between items-center">
-        <div className="text-2xl font-black main-color">conduit</div>
+        <div className="text-2xl font-black main-color" onClick={() => {
+              location.href = "/";
+            }}>conduit</div>
         <div className="flex justify-center">
           <div
             className=" mx-5 flex justify-center items-center"

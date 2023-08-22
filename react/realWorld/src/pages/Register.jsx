@@ -1,11 +1,15 @@
 import LoginHeader from "../components/LoginHeader";
 import LoginForm from "../components/LoginForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { register } from "../api/user";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../utils/user";
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  const {setUser} = useContext(UserContext)
   const registerFormArray = [
     {
       name: "Username",
@@ -31,7 +35,13 @@ export default function Register() {
     }
     register(user).then((res) => {
       console.log(res);
-    });
+      alert('注册成功')
+      setUser(res.user)
+      navigate('/')
+    }).catch(err => {
+      console.log(err, 'eee')
+      alert(err)
+    })
   }
   return (
     <div className="flex items-center justify-center">

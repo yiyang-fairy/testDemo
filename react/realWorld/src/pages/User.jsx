@@ -8,9 +8,9 @@ import { followAuthor, getAuthor, unFollowAuthor } from "../api/profile";
 
 export default function User() {
   const { username } = useParams();
-  const self = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const [articles, setArticles] = useState([]);
-  const [user, setUser] = useState(null);
+  const [author, setAuthor] = useState(null);
   const [isSelf, setIsSelf] = useState(null);
 
   function getFavoritedArticles() {
@@ -33,37 +33,37 @@ export default function User() {
   }
   useEffect(() => {
     if (!username) {
-      setUser(self);
+      setAuthor(user);
     }
-    if (!self) {
+    if (!user) {
       return;
     }
-    setIsSelf(self.username === username);
+    setIsSelf(user.username === username);
 
     getAuthor(username).then((res) => {
-      setUser(res.profile);
+      setAuthor(res.profile);
     });
     getFavoritedArticles();
-  }, [self]);
+  }, [user]);
   function follow() {
-    const following = user.following;
+    const following = author.following;
     if (following) {
-      unFollowAuthor(user.name).then((res) => {
-        setUser({
-          ...user,
+      unFollowAuthor(author.name).then((res) => {
+        setAuthor({
+          ...author,
           following: false,
         });
       });
     } else {
-      followAuthor(user.name).then((res) => {
-        setUser({
-          ...user,
+      followAuthor(author.name).then((res) => {
+        setAuthor({
+          ...author,
           following: true,
         });
       });
     }
   }
-  if (user === null) {
+  if (author === null) {
     return null;
   }
   return (
@@ -74,13 +74,13 @@ export default function User() {
           style={{ width: "50%" }}
         >
           <div className=" w-24 h-24 rounded-full overflow-hidden">
-            <img className="w-full h-full" src={user.image} alt="" />
+            <img className="w-full h-full" src={author.image} alt="" />
           </div>
-          <p className="text-center text-2xl font-thin mt-3">{user.username}</p>
-          <p>{user.bio}</p>
+          <p className="text-center text-2xl font-thin mt-3">{author.username}</p>
+          <p>{author.bio}</p>
         </div>
         <div className="main flex justify-end items-center px-12">
-          <Button user={user} isSelf={isSelf} follow={follow}></Button>
+          <Button author={author} isSelf={isSelf} follow={follow}></Button>
         </div>
       </div>
       <div className="main flex items-start justify-center mt-8">
@@ -105,7 +105,7 @@ export default function User() {
   );
 }
 
-function Button({ user, isSelf, follow }) {
+function Button({ author, isSelf, follow }) {
   const navigate = useNavigate();
   if (isSelf) {
     return (
@@ -118,7 +118,7 @@ function Button({ user, isSelf, follow }) {
         ⚙ Edit Profile Setting
       </button>
     );
-  } else if (user.following) {
+  } else if (author.following) {
     return (
       <button
         onClick={() => {
@@ -126,7 +126,7 @@ function Button({ user, isSelf, follow }) {
         }}
         className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
       >
-        - unFollow {user.username}
+        - unFollow {author.username}
       </button>
     );
   } else {
@@ -137,7 +137,7 @@ function Button({ user, isSelf, follow }) {
         }}
         className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
       >
-        + Follow {user.username}
+        + Follow {author.username}
       </button>
     );
   }

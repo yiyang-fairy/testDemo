@@ -1,10 +1,14 @@
 import LoginHeader from "../components/LoginHeader";
 import LoginForm from "../components/LoginForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { login } from "../api/user";
+import { UserContext } from "../utils/user";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setemail] = useState("1196342044@qq.com");
   const [password, setPassword] = useState("12345678a");
+  const {setUser} =  useContext(UserContext)
+  const navigate = useNavigate()
   const loginFormArray = [
     {
       name: "email",
@@ -23,8 +27,12 @@ function userLogin() {
     password
   }).then((res) => {
     alert('登陆成功')
-    location.href = '/'
-  });
+    setUser(res.user)
+    navigate('/')
+  }).catch(err => {
+    console.log(err, 'eee')
+    alert(err)
+  })
 }
   return (
     <div className="flex items-center justify-center">
