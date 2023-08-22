@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/user",
+    path: "/user/:username",
     element: (
       <Auth>
         <User />

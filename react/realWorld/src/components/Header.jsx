@@ -63,7 +63,7 @@ export default function Header() {
               <div
                 className="mx-5 flex justify-center items-center"
                 onClick={() => {
-                  location.href = "/user";
+                  location.href = `/user/${username}`;
                 }}
               >
                 <span className=" w-10 h-10 rounded-full overflow-hidden mr-2">

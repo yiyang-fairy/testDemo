@@ -18,7 +18,6 @@ export default function Login() {
     },
   ];
 function userLogin() {
-  console.log('log innnnnnnnnnnnnnnnnnn')
   login({
     email,
     password

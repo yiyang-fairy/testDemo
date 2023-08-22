@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { favoriteArticle, unfavoriteArticle } from "../api/article";
 import Tags from "./Tags";
 import { useEffect, useState } from "react";
@@ -19,6 +20,10 @@ export default function ArticleList(props) {
   function toDetail(slug) {
     location.href = "article?slut=" + slug;
   }
+  const navigate = useNavigate()
+  function toAuthor(author) {
+    navigate(`/user/${author}`)
+  }
   if (!props.articles) return <div>no articles...</div>;
   return (
     <div>
@@ -30,7 +35,7 @@ export default function ArticleList(props) {
                 <img className="w-full h-full" src={item.author.image} alt="" />
               </div>
               <div className="flex flex-col">
-                <div className="main-color">{item.author.username}</div>
+                <div onClick={() => toAuthor(item.author.username)} className="main-color">{item.author.username}</div>
                 <div className="text-gray-400 font-thin text-sm">
                   {item.createdAt}
                 </div>

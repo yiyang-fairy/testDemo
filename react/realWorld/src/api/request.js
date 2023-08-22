@@ -27,7 +27,7 @@ request.interceptors.request.use(
       config.headers.Authorization = `Token ${token}`;
     }
     else if(config.url !== "/users/login") {
-      location.href = '/login'
+      // location.href = '/login'
     }
     return config;
   },

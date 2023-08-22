@@ -3,15 +3,21 @@ import { UserContext } from "../utils/user";
 import ArticleType from "../components/ArticleType";
 import ArticleList from "../components/ArticleList";
 import { getArticles } from "../api/article";
+import { useNavigate, useParams } from "react-router-dom";
+import { followAuthor, getAuthor, unFollowAuthor } from "../api/profile";
 
 export default function User() {
-  const user = useContext(UserContext);
+  const { username } = useParams();
+  const self = useContext(UserContext);
   const [articles, setArticles] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isSelf, setIsSelf] = useState(null);
+
   function getFavoritedArticles() {
     getArticles({
       limit: 10,
       offset: 0,
-      favorited: user.username,
+      favorited: username,
     }).then((res) => {
       setArticles(res.articles);
     });
@@ -20,17 +26,43 @@ export default function User() {
     getArticles({
       limit: 10,
       offset: 0,
-      author: user.username,
+      author: username,
     }).then((res) => {
       setArticles(res.articles);
     });
   }
   useEffect(() => {
-    if (!user) {
+    if (!username) {
+      setUser(self);
+    }
+    if (!self) {
       return;
     }
+    setIsSelf(self.username === username);
+
+    getAuthor(username).then((res) => {
+      setUser(res.profile);
+    });
     getFavoritedArticles();
-  }, [user]);
+  }, [self]);
+  function follow() {
+    const following = user.following;
+    if (following) {
+      unFollowAuthor(user.name).then((res) => {
+        setUser({
+          ...user,
+          following: false,
+        });
+      });
+    } else {
+      followAuthor(user.name).then((res) => {
+        setUser({
+          ...user,
+          following: true,
+        });
+      });
+    }
+  }
   if (user === null) {
     return null;
   }
@@ -48,14 +80,7 @@ export default function User() {
           <p>{user.bio}</p>
         </div>
         <div className="main flex justify-end items-center px-12">
-          <button
-            onClick={() => {
-              location.href = "/setting";
-            }}
-            className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
-          >
-            ⚙ Edit Profile Setting
-          </button>
+          <Button user={user} isSelf={isSelf} follow={follow}></Button>
         </div>
       </div>
       <div className="main flex items-start justify-center mt-8">
@@ -78,4 +103,42 @@ export default function User() {
       </div>
     </div>
   );
+}
+
+function Button({ user, isSelf, follow }) {
+  const navigate = useNavigate();
+  if (isSelf) {
+    return (
+      <button
+        onClick={() => {
+          navigate("/setting");
+        }}
+        className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
+      >
+        ⚙ Edit Profile Setting
+      </button>
+    );
+  } else if (user.following) {
+    return (
+      <button
+        onClick={() => {
+          follow();
+        }}
+        className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
+      >
+        - unFollow {user.username}
+      </button>
+    );
+  } else {
+    return (
+      <button
+        onClick={() => {
+          follow();
+        }}
+        className=" px-2 py-1 text-gray-400 rounded-md border border-gray-400 border-solid text-sm"
+      >
+        + Follow {user.username}
+      </button>
+    );
+  }
 }

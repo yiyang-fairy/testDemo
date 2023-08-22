@@ -2,6 +2,7 @@ import { useImmer } from "use-immer";
 import { createComments, deleteComments, getComments } from "../api/article";
 import { UserContext } from "../utils/user";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Comments(props) {
   const user = useContext(UserContext);
@@ -16,7 +17,7 @@ export default function Comments(props) {
     createComments(props.slug, {
       body: content,
     }).then((res) => {
-      setContent('')
+      setContent("");
       updateCommentList((draft) => {
         draft.push(res.comment);
         return draft;
@@ -59,6 +60,7 @@ export default function Comments(props) {
 }
 
 function CommentTemplate(props) {
+  const navigate = useNavigate();
   return (
     <div
       className="border border-gray-300 border-solid rounded-md overflow-hidden mb-5"
@@ -83,9 +85,13 @@ function CommentTemplate(props) {
           </div>
           {props.edit ? null : (
             <div>
-              <span className="main-color text-xs">
-                {" "}
-                {props.user.username}{" "}
+              <span
+                className="main-color text-xs"
+                onClick={() => {
+                  navigate(`/user/${props.user.username}`);
+                }}
+              >
+                {props.user.username}
               </span>
               <span className="text-gray-400 text-xs"> {props.createdAt}</span>
             </div>
