@@ -24,7 +24,7 @@ export default function ArticleType(props) {
             props.currentTag && props.deleteCurrentTag();
             props.otherType.getList();
           }}
-          className=" inline-block  border-green-500 border-solid h-8 px-4  text-lg hover:text-gray-500"
+          className=" inline-block  border-green-500 border-solid h-8 px-4 text-base hover:text-gray-500"
         >
           {props.otherType.name}
         </span>
@@ -35,12 +35,12 @@ export default function ArticleType(props) {
           props.currentTag && props.deleteCurrentTag();
           props.mainType.getList();
         }}
-        className=" text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-lg hover:text-gray-500"
+        className=" text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-base hover:text-gray-500"
       >
         {props.mainType.name}
       </span>
       {props.currentTag && (
-        <span className=" tag-feed text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-lg hover:text-gray-500">
+        <span className=" tag-feed text-green-500 border-b-2 inline-block  border-green-500 border-solid h-8 px-4 text-base hover:text-gray-500">
           # {props.currentTag}
         </span>
       )}

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import {
   favoriteArticle,
   getArticleFeed,
@@ -7,6 +8,8 @@ import {
 import Tags from "./Tags";
 import { useEffect, useState } from "react";
 import { useRequest } from "ahooks";
+import { formatDate } from "../utils/foemateDate";
+
 export default function ArticleList(props) {
   const navigate = useNavigate();
   function clickLike(item) {
@@ -67,7 +70,7 @@ export default function ArticleList(props) {
                       {item.author.username}
                     </div>
                     <div className="text-gray-400 font-thin text-sm">
-                      {item.createdAt}
+                      {formatDate(item.createdAt)}
                     </div>
                   </div>
                 </div>

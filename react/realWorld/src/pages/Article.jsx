@@ -6,6 +6,7 @@ import Comments from "../components/Comments";
 import { unFollowAuthor, followAuthor } from "../api/profile";
 import { useImmer } from "use-immer";
 import { UserContext } from "../utils/user";
+import { formatDate } from "../utils/foemateDate";
 
 function useAsycnEffectArticle() {
   const {slug} = useParams()
@@ -24,7 +25,7 @@ function useAsycnEffectArticle() {
 }
 function Author({ article, footer, setArticle }) {
   const { user } = useContext(UserContext);
-  const isSelf = user.username === article.author.username;
+  const isSelf = user?.username === article.author.username;
   const navigate = useNavigate();
   if (!article) {
     return null;
@@ -79,7 +80,7 @@ function Author({ article, footer, setArticle }) {
         >
           {article.author.username}
         </div>
-        <div className=" text-gray-400">{article.createdAt}</div>
+        <div className=" text-gray-400">{formatDate(article.createdAt)}</div>
       </div>
       {isSelf ? (
         <>
