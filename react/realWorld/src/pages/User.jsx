@@ -5,11 +5,12 @@ import ArticleList from "../components/ArticleList";
 import { getArticles } from "../api/article";
 import { useNavigate, useParams } from "react-router-dom";
 import { followAuthor, getAuthor, unFollowAuthor } from "../api/profile";
+import { useImmer } from "use-immer";
 
 export default function User() {
   const { username } = useParams();
   const {user} = useContext(UserContext);
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useImmer([]);
   const [author, setAuthor] = useState(null);
   const [isSelf, setIsSelf] = useState(null);
 
@@ -98,7 +99,7 @@ export default function User() {
             }}
             articles={articles}
           ></ArticleType>
-          <ArticleList articles={articles}></ArticleList>
+          <ArticleList articles={articles} updateArticles={setArticles}></ArticleList>
         </div>
       </div>
     </div>

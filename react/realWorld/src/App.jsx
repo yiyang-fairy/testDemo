@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header";
-import * as ReactDOM from "react-dom/client";
 import { router } from "./router/index.jsx";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import { getUser } from "./api/user";
 import { UserContext } from "./utils/user";
+import Header from "./components/Header.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,8 +24,10 @@ console.log(user, 'app user')
   return (
     <UserContext.Provider value={{user, setUser}}>
       <div>
-        <Header></Header>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} >
+          <Header></Header>
+          {router}
+        </RouterProvider>
       </div>
     </UserContext.Provider>
   );

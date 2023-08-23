@@ -34,7 +34,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div
+      {
+        localStorage.getItem("token") ?'':(
+          <div
         className="w-full py-14 text-white flex items-center justify-center"
         style={{
           backgroundColor: "#5CB85C",
@@ -49,6 +51,8 @@ export default function Home() {
           </p>
         </div>
       </div>
+        )
+      }
       <div className="main flex items-start justify-center mt-8">
         <div className="flex-1">
           <ArticleType
