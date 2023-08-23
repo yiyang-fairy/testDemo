@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/article",
+        path: "/article/:slug",
         element: (
           <Auth>
             <Article />
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/create",
+        path: "/create/:slug?",
         element: (
           <Auth>
             <CreateArticle />

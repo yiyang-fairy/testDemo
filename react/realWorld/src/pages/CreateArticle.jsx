@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { createArticle } from "../api/article";
+import { useEffect, useState } from "react";
+import { createArticle, getArticle } from "../api/article";
+import { useNavigate, useParams } from "react-router-dom";
 export default function CreateArticle() {
   const [articleTitle, setArtitleTitle] = useState("");
   const [articleDescription, setArtitleDescription] = useState("");
   const [articleBody, setArtitleBody] = useState("");
   const [articleTag, setArtitleTag] = useState("");
+  const naigate = useNavigate()
   function publish() {
     createArticle({
       title: articleTitle,
@@ -13,9 +15,21 @@ export default function CreateArticle() {
       tagList: articleTag,
     }).then((res) => {
       alert("发布成功！");
-      location.href = "article?slut=" + res.article.slug;
+      naigate(`/article/${res.article.slug}`)
     });
   }
+  const { slug } = useParams();
+  useEffect(() => {
+    if (slug) {
+      getArticle(slug).then((res) => {
+        console.log(res, "res");
+        setArtitleTitle(res.article.title);
+        setArtitleDescription(res.article.description);
+        setArtitleBody(res.article.body);
+        setArtitleTag(res.article.tagList);
+      });
+    }
+  }, []);
   return (
     <div className="flex justify-center items-center">
       <div className="main px-16 mt-8">

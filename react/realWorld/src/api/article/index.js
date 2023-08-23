@@ -29,6 +29,13 @@ export const createArticle = (article) => {
   });
 };
 
+export const deleteArticle = (slug) => {
+    return request({
+        method:'DELETE',
+        url:`/articles/${slug}`
+    })
+}
+
 export const favoriteArticle = (slug) => {
   return request({
     method: "POST",

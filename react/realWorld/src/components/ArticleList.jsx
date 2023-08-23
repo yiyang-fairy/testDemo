@@ -27,7 +27,7 @@ export default function ArticleList(props) {
     });
   }
   function toDetail(slug) {
-    location.href = "article?slut=" + slug;
+    navigate(`/article/${slug}`)
   }
   function toAuthor(author) {
     navigate(`/user/${author}`);
