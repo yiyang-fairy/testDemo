@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input" />
+      <button id="btn">点击</button>
+      <div
+        style="width: 300px; height: 300px; border: 1px solid #ccc"
+        id="box"
+      ></div>
+      <input type="text" value='<%= getParameter("keyword") %>' />
+      <button>搜索</button>
+      <div>您搜索的关键词是：<%= getParameter("keyword") %></div>
+    </div>
+    <script src="11-xss.js"></script>
+  </body>
+</html>
