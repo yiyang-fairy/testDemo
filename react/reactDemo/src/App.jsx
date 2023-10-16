@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Index from "./views/Index.jsx";
+import Home from "./views/Home";
 import { Route, BrowserRouter as Router, Link, Routes } from "react-router-dom";
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       {/* <Routes>
         <Route path="/" exact component={<Index />}></Route>
       </Routes> */}
-      <Index></Index>
+      <Home></Home>
     </Router>
   );
 }
