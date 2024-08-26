@@ -5,3 +5,15 @@ export type Word = {
   phoneticSymbol: string; //音标
   translation: string;
 };
+
+export type TypingSetting = {
+  dictionaryId: number;
+  dictionaryName: string;
+  chapter: string;
+  phoneticSymbol: string;
+};
+
+export type TypingState = {
+  isTyping: boolean;
+  time: number;
+};

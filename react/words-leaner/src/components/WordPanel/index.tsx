@@ -1,8 +1,13 @@
+import { useWordIndex, useWordsList } from "../../store/words";
 import Translation from "../Translation";
-import WordComponent from "../WordComponent";
+import { WordComponent } from "../WordComponent";
 
 export default function WordPanel() {
-  const currentWord = "cancel";
+  const { wordIndex } = useWordIndex();
+  const { wordsList } = useWordsList();
+  const currentWord = wordsList[wordIndex];
+  const nextWord = wordsList[wordIndex + 1] || null;
+  const lastWord = wordsList[wordIndex - 1] || null;
   const state = {
     isTyping: true,
     timerData: {
@@ -23,8 +28,14 @@ export default function WordPanel() {
                 </div>
               </div>
             )}
+            {/* {state.isTyping && (
+              <div>
+                <div>{lastWord.name}</div>
+                <div>{nextWord.name}</div>
+              </div>
+            )} */}
             <div className="relative">
-              <WordComponent />
+              <WordComponent word={currentWord} />
               <Translation />
             </div>
           </div>
