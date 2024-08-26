@@ -1,25 +1,32 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
+import { useImmer } from "use-immer";
 import { TypingState } from "../typings";
 
 interface TypingStateType {
   typingState: TypingState;
-  setTypingState: React.Dispatch<React.SetStateAction<TypingState>>;
+  updateTypingState: (
+    updater: (draft: TypingState) => void | TypingState
+  ) => void;
 }
 
 const TypingStateContext = createContext<TypingStateType | undefined>(
   undefined
 );
 
-const obj = {
+const initialState: TypingState = {
   isTyping: false,
   time: 0,
+  dictionaryId: 123,
+  dictionaryName: "ECT-4",
+  chapter: "第一章",
+  phoneticSymbol: "qqqqq",
 };
 
 export const TypingStateProvider = ({ children }: { children: ReactNode }) => {
-  const [typingState, setTypingState] = useState<TypingState>(obj);
+  const [typingState, updateTypingState] = useImmer<TypingState>(initialState);
 
   return (
-    <TypingStateContext.Provider value={{ typingState, setTypingState }}>
+    <TypingStateContext.Provider value={{ typingState, updateTypingState }}>
       {children}
     </TypingStateContext.Provider>
   );
@@ -29,7 +36,7 @@ export const TypingStateProvider = ({ children }: { children: ReactNode }) => {
 export const useTypingState = () => {
   const context = useContext(TypingStateContext);
   if (!context) {
-    throw new Error("useWordsList must be used within a WordsListProvider");
+    throw new Error("useTypingState must be used within a TypingStateProvider");
   }
   return context;
 };

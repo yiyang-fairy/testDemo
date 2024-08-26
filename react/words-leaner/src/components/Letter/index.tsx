@@ -5,10 +5,15 @@ export default function Letter({
 }: {
   letter: string;
   visible: boolean;
-  correct: boolean;
+  correct: true | false | "";
 }) {
   return (
-    <div className={"text-5xl " + (correct ? "text-green-600" : "")}>
+    <div
+      className={
+        "text-5xl m-3 text-black " +
+        (correct ? "text-green-600" : "text-red-600")
+      }
+    >
       {visible ? letter : "_"}
     </div>
   );

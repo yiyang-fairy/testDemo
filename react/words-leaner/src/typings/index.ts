@@ -6,14 +6,11 @@ export type Word = {
   translation: string;
 };
 
-export type TypingSetting = {
+export type TypingState = {
+  isTyping: boolean;
+  time: number;
   dictionaryId: number;
   dictionaryName: string;
   chapter: string;
   phoneticSymbol: string;
-};
-
-export type TypingState = {
-  isTyping: boolean;
-  time: number;
 };

@@ -10,6 +10,7 @@ import React, { useState } from "react";
 //   TranslationOutlined,
 // } from "@ant-design/icons";
 import { Dropdown, Button } from "antd";
+import { useTypingState } from "../../store/typingSate";
 
 export default function TypingSetting() {
   const [currentChapter, setCurrentChapter] = useState("第 1 章");
@@ -25,6 +26,14 @@ export default function TypingSetting() {
 
   const handleMenuClick = (e: { key: React.SetStateAction<string> }) => {
     setCurrentChapter(e.key);
+  };
+
+  const { typingState, updateTypingState } = useTypingState();
+
+  const handleStart = () => {
+    updateTypingState((draft) => {
+      draft.isTyping = !draft.isTyping;
+    });
   };
 
   return (
@@ -71,8 +80,11 @@ export default function TypingSetting() {
       </div> */}
 
       {/* 右侧按钮 */}
-      <button className="bg-blue-500 text-white font-semibold px-4 py-1 rounded-full shadow-md hover:bg-blue-600">
-        Start
+      <button
+        onClick={handleStart}
+        className="bg-blue-500 text-white font-semibold px-4 py-1 rounded-full shadow-md hover:bg-blue-600"
+      >
+        {typingState.isTyping ? "Pause" : "Start"}
       </button>
     </div>
   );

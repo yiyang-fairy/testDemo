@@ -12,15 +12,22 @@ const arr = [
     name: "cancel",
     updateTime: new Date(),
     proficiency: 0.7, // 熟练度
-    phoneticSymbol: "jjj", //音标
+    phoneticSymbol: "cancel 音标", //音标
     translation: "取消",
   },
   {
     name: "happy",
     updateTime: new Date(),
     proficiency: 0.5, // 熟练度
-    phoneticSymbol: "jjj", //音标
+    phoneticSymbol: "happy 音标", //音标
     translation: "开心",
+  },
+  {
+    name: "computer",
+    updateTime: new Date(),
+    proficiency: 0.5, // 熟练度
+    phoneticSymbol: "computer 音标", //音标
+    translation: "电脑",
   },
 ];
 // 创建上下文
