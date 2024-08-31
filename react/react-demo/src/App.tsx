@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import HigherOrderComponent from "./pages/HigherOrderComponent";
 import Ref from "./pages/Ref";
+import Context from "./pages/Context";
 
 const { Sider, Content } = Layout;
 
@@ -22,6 +23,9 @@ function App() {
             <Menu.Item key="2" icon={<UserOutlined />}>
               <Link to="/ref">Ref</Link>
             </Menu.Item>
+            <Menu.Item key="3" icon={<UserOutlined />}>
+              <Link to="/context">Context</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -36,6 +40,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HigherOrderComponent />} />
                 <Route path="/ref" element={<Ref />} />
+                <Route path="/context" element={<Context />} />
               </Routes>
             </div>
           </Content>
