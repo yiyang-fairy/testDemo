@@ -16,10 +16,10 @@ export default function Ref() {
     timer.current = setInterval(() => {
       console.log("触发了");
     }, 1000);
+    return stop();
   }, []);
 
   const stop = () => {
-    console.log(timer.current);
     clearInterval(timer.current);
   };
   const add = () => {
