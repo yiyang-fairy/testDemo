@@ -5,6 +5,7 @@ import HigherOrderComponent from "./pages/HigherOrderComponent";
 import Ref from "./pages/Ref";
 import Context from "./pages/Context";
 import RenderProps from "./pages/RenderProps";
+import Portals from "./pages/Portals";
 
 const { Sider, Content } = Layout;
 
@@ -30,6 +31,9 @@ function App() {
             <Menu.Item key="4" icon={<UserOutlined />}>
               <Link to="/renderProps">RenderProps</Link>
             </Menu.Item>
+            <Menu.Item key="5" icon={<UserOutlined />}>
+              <Link to="/portals">Portals</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -46,6 +50,7 @@ function App() {
                 <Route path="/ref" element={<Ref />} />
                 <Route path="/context" element={<Context />} />
                 <Route path="/renderProps" element={<RenderProps />} />
+                <Route path="/portals" element={<Portals />} />
               </Routes>
             </div>
           </Content>
