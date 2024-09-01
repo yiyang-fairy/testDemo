@@ -4,6 +4,7 @@ import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import HigherOrderComponent from "./pages/HigherOrderComponent";
 import Ref from "./pages/Ref";
 import Context from "./pages/Context";
+import RenderProps from "./pages/RenderProps";
 
 const { Sider, Content } = Layout;
 
@@ -26,6 +27,9 @@ function App() {
             <Menu.Item key="3" icon={<UserOutlined />}>
               <Link to="/context">Context</Link>
             </Menu.Item>
+            <Menu.Item key="4" icon={<UserOutlined />}>
+              <Link to="/renderProps">RenderProps</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -36,11 +40,12 @@ function App() {
               height: "90vh",
             }}
           >
-            <div style={{ padding: 24, background: "#fff" }}>
+            <div style={{ padding: 24, background: "#fff", height: "100%" }}>
               <Routes>
                 <Route path="/" element={<HigherOrderComponent />} />
                 <Route path="/ref" element={<Ref />} />
                 <Route path="/context" element={<Context />} />
+                <Route path="/renderProps" element={<RenderProps />} />
               </Routes>
             </div>
           </Content>
