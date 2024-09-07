@@ -6,6 +6,7 @@ import Ref from "./pages/Ref";
 import Context from "./pages/Context";
 import RenderProps from "./pages/RenderProps";
 import Portals from "./pages/Portals";
+import ErrorBoundaries from "./pages/ErrorBoundaries";
 
 const { Sider, Content } = Layout;
 
@@ -34,6 +35,9 @@ function App() {
             <Menu.Item key="5" icon={<UserOutlined />}>
               <Link to="/portals">Portals</Link>
             </Menu.Item>
+            <Menu.Item key="6" icon={<UserOutlined />}>
+              <Link to="/errorBoundaries">ErrorBoundaries</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -51,6 +55,7 @@ function App() {
                 <Route path="/context" element={<Context />} />
                 <Route path="/renderProps" element={<RenderProps />} />
                 <Route path="/portals" element={<Portals />} />
+                <Route path="/errorBoundaries" element={<ErrorBoundaries />} />
               </Routes>
             </div>
           </Content>
