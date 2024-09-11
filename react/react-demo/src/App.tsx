@@ -7,6 +7,8 @@ import Context from "./pages/Context";
 import RenderProps from "./pages/RenderProps";
 import Portals from "./pages/Portals";
 import ErrorBoundaries from "./pages/ErrorBoundaries";
+import TempDemo from "./pages/TempDemo";
+import PerformanceOptimization from "./pages/PerformanceOptimization";
 
 const { Sider, Content } = Layout;
 
@@ -38,6 +40,12 @@ function App() {
             <Menu.Item key="6" icon={<UserOutlined />}>
               <Link to="/errorBoundaries">ErrorBoundaries</Link>
             </Menu.Item>
+            <Menu.Item key="7" icon={<UserOutlined />}>
+              <Link to="/tempDemo">TempDemo</Link>
+            </Menu.Item>
+            <Menu.Item key="8" icon={<UserOutlined />}>
+              <Link to="/performanceOptimization">组件性能优化</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -56,6 +64,11 @@ function App() {
                 <Route path="/renderProps" element={<RenderProps />} />
                 <Route path="/portals" element={<Portals />} />
                 <Route path="/errorBoundaries" element={<ErrorBoundaries />} />
+                <Route path="/tempDemo" element={<TempDemo />} />
+                <Route
+                  path="/performanceOptimization"
+                  element={<PerformanceOptimization />}
+                />
               </Routes>
             </div>
           </Content>
