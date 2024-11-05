@@ -18,12 +18,24 @@ const createElement = (type, props, ...children) => {
   }
 }
 
-const textE1 = createTextNode("app2")
-const App = createElement("div", { id: "app" }, textE1)
+const render = (element, container) => {
+  const dom = element.type === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type)
 
-const dom = document.createElement(App.type)
-dom.id = App.props.id
-document.querySelector("#root").append(dom)
-const textNode = document.createTextNode("")
-textNode.nodeValue = textE1.props.nodeValue
-dom.appendChild(textNode)
+  Object.keys(element.props).filter(item => item !== undefined || item !== null).forEach(name => {
+    if (name !== "children") {
+      dom[name] = element.props[name]
+    }
+  })
+
+  const children = element.props.children
+  children.forEach(child => {
+    render(child, dom)
+  })
+
+  container.appendChild(dom)
+}
+
+const textEl = createTextNode("app")
+const App = createElement("div", { id: "app" }, textEl)
+console.log(App, "App")
+render(App, document.querySelector("#root"))
