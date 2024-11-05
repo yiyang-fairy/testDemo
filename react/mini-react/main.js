@@ -39,3 +39,19 @@ const textEl = createTextNode("app")
 const App = createElement("div", { id: "app" }, textEl)
 console.log(App, "App")
 render(App, document.querySelector("#root"))
+
+const ReactDOM = {
+  createRoot(container) {
+    return {
+      render(el) {
+        render(el, container)
+      },
+    }
+  },
+}
+
+ReactDOM.createRoot(document.querySelector("#root")).render(App)
+
+const root = ReactDOM.createRoot(document.querySelector("#root"))
+// root => { render: fn }
+root.render(App) // render(App, document.querySelector("#root"))
