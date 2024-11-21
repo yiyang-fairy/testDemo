@@ -14,7 +14,8 @@ const createElement = (type, props, ...children) => {
     props: {
       ...props,
       children: children.map(child => {
-        return typeof child === "string" ? createTextNode(child) : child
+        const testNode = typeof child === "string" || typeof child === "number"
+        return testNode ? createTextNode(child) : child
       }),
     },
   }
@@ -101,25 +102,41 @@ const initChildren = (fiber, children) => {
   })
 }
 
-const performWorkOfUnit = (fiber) => {
-  const isFunctionComponent = typeof fiber.type === "function"
-  if (!isFunctionComponent) {
-    if (!fiber.dom) {
-      const dom = (fiber.dom = createDom(fiber.type))
-      updateProps(dom, fiber.props)
-    }
-  }
-  const children = isFunctionComponent ? [fiber.type()] : fiber.props.children
+function updateFunctionComponent(fiber) {
+  const children = [fiber.type(fiber.props)]
 
   initChildren(fiber, children)
+}
+
+function updateHostComponent(fiber) {
+  if (!fiber.dom) {
+    const dom = (fiber.dom = createDom(fiber.type))
+    updateProps(dom, fiber.props)
+  }
+  const children = fiber.props.children
+  initChildren(fiber, children)
+}
+
+const performWorkOfUnit = (fiber) => {
+  const isFunctionComponent = typeof fiber.type === "function"
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber)
+  } else {
+    updateHostComponent(fiber)
+  }
+
   if (fiber.child) {
     return fiber.child
   }
 
-  if (fiber.sibling) {
-    return fiber.sibling
+  let nextFiber = fiber
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling
+    }
+    nextFiber = nextFiber.parent
   }
-  return fiber.parent?.sibling
+  // return fiber.parent?.sibling
 }
 
 requestIdleCallback(workLoop)
