@@ -27,9 +27,13 @@ const render = (element, container) => {
       children: [element]
     }
   }
+
+  root = nextWork
 }
 
 let nextWork = null
+let root = null
+
 const workLoop = (deadline) => {
   let shouldYield = false
   while (!shouldYield && nextWork) {
@@ -37,7 +41,31 @@ const workLoop = (deadline) => {
 
     shouldYield = deadline.timeRemaining() < 1
   }
+  if (!nextWork && root) {
+    commitRoot()
+  }
   requestIdleCallback(workLoop)
+}
+
+const commitRoot = () => {
+  commitWork(root.child)
+  root = null
+}
+
+const commitWork = (fiber) => {
+  if (!fiber) return 
+  
+  let fiberParent = fiber.parent
+  while (!fiberParent.dom) {
+    fiberParent = fiberParent.parent
+  }
+
+  if (fiber.dom) {
+    fiberParent.dom.append(fiber.dom)
+  }
+  
+  commitWork(fiber.child)
+  commitWork(fiber.sibling)
 }
 
 const createDom = (type) =>  {
@@ -52,8 +80,7 @@ const updateProps = (dom, props) => {
   })
 }
 
-const initChildren = (fiber) => {
-  const children = fiber.props.children
+const initChildren = (fiber, children) => {
   let prevChild = null
   children.forEach((child, index) => {
     const newFiber = {
@@ -75,16 +102,16 @@ const initChildren = (fiber) => {
 }
 
 const performWorkOfUnit = (fiber) => {
-  if (!fiber.dom) {
-    const dom = (fiber.dom = createDom(fiber.type))
-
-    fiber.parent.dom.append(dom)
-
-    updateProps(dom, fiber.props)
+  const isFunctionComponent = typeof fiber.type === "function"
+  if (!isFunctionComponent) {
+    if (!fiber.dom) {
+      const dom = (fiber.dom = createDom(fiber.type))
+      updateProps(dom, fiber.props)
+    }
   }
+  const children = isFunctionComponent ? [fiber.type()] : fiber.props.children
 
-  initChildren(fiber)
-
+  initChildren(fiber, children)
   if (fiber.child) {
     return fiber.child
   }
@@ -92,7 +119,6 @@ const performWorkOfUnit = (fiber) => {
   if (fiber.sibling) {
     return fiber.sibling
   }
-
   return fiber.parent?.sibling
 }
 

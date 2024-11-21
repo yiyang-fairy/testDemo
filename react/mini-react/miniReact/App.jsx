@@ -1,8 +1,20 @@
 import React from "./core/React.js"
 
-const App = React.createElement("div", { id: "app" }, "hi-", "mini-react")
+function Counter() {
+  return (
+    <div>
+      <div>count</div>
+    </div>
+  )
+}
 
-// const App = <div id="app">hi-mini-react</div>
+function App() {
+  return (
+    <div>
+      mini-react
+      <Counter></Counter>
+    </div>
+  )
+}
 
-console.log(App)
 export default App
